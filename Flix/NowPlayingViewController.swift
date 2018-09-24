@@ -96,10 +96,19 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let posterURL = URL(string: baseURLString + posterPathString)!
         
         cell.posterImageView.af_setImage(withURL: posterURL)
+    
         return cell
     }
 
-        // Do any additional setup after loading the view.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell){
+        let movie = movies[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.movie = movie
+            
+        }
+    }
     
 
     override func didReceiveMemoryWarning() {
